@@ -1,49 +1,72 @@
-import time
+from rich import print
+from rich.console import Console
+from rich.text import Text
+from rich.progress import track
+from rich.panel import Panel
+from rich.prompt import Prompt
+import time, sys
 import keyboard
 from os import system
 from player import Player
 
-
 class Game:
-
+    
+    #lib variables
+    console = Console()
+    
     def __init__(self):
         self.vsavestrt = 'start_shoptyc::'
         self.user = Player()
 
+    def titleScreen(self):
+        title = Text()
+        title.append("███╗   ███╗ █████╗ ██████╗ ██╗  ██╗███████╗████████╗    ████████╗██╗   ██╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗\n")
+        title.append("████╗ ████║██╔══██╗██╔══██╗██║ ██╔╝██╔════╝╚══██╔══╝    ╚══██╔══╝╚██╗ ██╔╝██╔════╝██╔═══██╗██╔═══██╗████╗  ██║\n")
+        title.append("██╔████╔██║███████║██████╔╝█████╔╝ █████╗     ██║          ██║    ╚████╔╝ ██║     ██║   ██║██║   ██║██╔██╗ ██║\n")
+        title.append("██║╚██╔╝██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝     ██║          ██║     ╚██╔╝  ██║     ██║   ██║██║   ██║██║╚██╗██║\n")
+        title.append("██║ ╚═╝ ██║██║  ██║██║  ██║██║  ██╗███████╗   ██║          ██║      ██║   ╚██████╗╚██████╔╝╚██████╔╝██║ ╚████║\n")
+        title.append("╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝          ╚═╝      ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝")
+        title.stylize("#1F8FFF")
+        self.console.print(title)
+    
     def start(self):
+        inp = ''
         system("CLS")
-        print("+--------------------------------------+")
-        print("             Shop Tycoon")
-        print("+--------------------------------------+\n")
-        print("> [1] New Game")
-        print("> [2] Load Game")
-        print("> [3] Show Saves")
-        print("> [4] Options")
-        print("> [5] Quit\n")
-        print("+--------------------------------------+")
+        print('\n')
+        self.titleScreen()
+        print(Panel("> [1] New Game\n" + 
+                    "> [2] Load Game\n" + 
+                    "> [3] Show Saves\n" + 
+                    "> [4] Options\n" + 
+                    "> [5] Quit",title="Main Menu", width=65))
 
         while True:
-            inp = input("> ")
-            if inp == '1':
-                self.new_game()
-            elif inp == '2':
-                self.load_game()
-            elif inp == '3':
-                self.display_saves()
-            elif inp == '4':
-                print(self.user.get_player_name())
-            elif inp == '5':
-                quit()
-            else:
-                print("INPUT ERROR")
+            try:
+                inp = int(input("> "))
+                
+                if inp == 1:
+                    self.new_game()
+                    break
+                elif inp == 2:
+                    self.load_game()
+                    break
+                elif inp == 3:
+                    self.display_saves()
+                elif inp == 4:
+                    print(self.user.get_player_name())
+                elif inp == 5:
+                    quit()
+                else:
+                    print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
+            except Exception as err:
+                print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
 
     # File Handling
     def new_game(self):
         system("CLS")
         userdata = []
         self.display_saves()
-        print("Which save do you want to select to create a new game?")
-        print("save 1, save 2, or save 3")
+        print(Panel("Which save do you want to select to create a new game?\nSave [1], Save [2], Save [3] | [4] Cancel"))
         while True:
             inp = input("> ")
             if inp.endswith("1"):
@@ -84,6 +107,8 @@ class Game:
                 self.user.create_player(userdata[0], userdata[1], 1000)
                 userdata.clear()
                 break
+            if inp.endswith("4"):
+                break
         self.start()
 
     def load_game(self):
@@ -91,7 +116,7 @@ class Game:
         self.display_saves()
         userdata = []
         file_open = ''
-        print("Which Save Slot do you want to load?\nSave 1, Save 2, or Save 3")
+        print(Panel("Which save do you want to select to load?\nSave [1], Save [2], or Save [3] | [4] Cancel"))
         while True:
             inp = input("> ")
 
@@ -112,11 +137,8 @@ class Game:
                         else:
                             pass
                         i += 1
-                    print("\n======Loaded Save======")
-                    print("Player: " + self.user.get_player_name())
-                    print("Company: " + self.user.get_company())
-                    print("=======================\n")
-                    time.sleep(3)
+                    print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company(),title="Loaded Save 1"))
+                    time.sleep(2)
                     file_open.close()
                     userdata.clear()
                     break
@@ -142,11 +164,8 @@ class Game:
                         else:
                             pass
                         i += 1
-                    print("\n======Loaded Save======")
-                    print("Player: " + self.user.get_player_name())
-                    print("Company: " + self.user.get_company())
-                    print("=======================\n")
-                    time.sleep(3)
+                    print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company(),title="Loaded Save 2"))
+                    time.sleep(2)
                     file_open.close()
                     userdata.clear()
                     break
@@ -172,11 +191,8 @@ class Game:
                         else:
                             pass
                         i += 1
-                    print("\n======Loaded Save======")
-                    print("Player: " + self.user.get_player_name())
-                    print("Company: " + self.user.get_company())
-                    print("=======================\n")
-                    time.sleep(3)
+                    print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company(),title="Loaded Save 3"))
+                    time.sleep(2)
                     file_open.close()
                     userdata.clear()
                     break
@@ -184,6 +200,8 @@ class Game:
                     print("Save File Doesn't Exist!")
                     time.sleep(2)
                     break
+            if inp.endswith("4"):
+                break
         self.start()
 
     def display_saves(self):
@@ -192,19 +210,16 @@ class Game:
             try:
                 result = self.check_valid_saves("./shop{0}.sav".format(str(i)))
                 if result == False:
+                    text = Text()
                     file_open = open("./shop{0}.sav".format(str(i)))
-                    print("\n=================\n[shop{0}.sav]".format(str(i)))
                     file_open.readline()
                     for data in file_open.readlines():
-                        print(data)
+                        text.append(data)
+                    print(Panel(text,title="shop{0}.sav".format(str(i)),style='green'))
                 elif result == True:
-                    print(
-                        "=================\n[shop{0}.sav]\nNot A Valid Save File".format(str(i)))
+                    print(Panel("Not a Valid Save File",title="shop{0}.sav".format(str(i))))
                 else:
-                    print(
-                        "=================\n[shop{0}.sav]\nNo Save File Found".format(str(i)))
-                if i == 2:
-                    print("=================\n")
+                    print(Panel("No Save File Found",title="shop{0}.sav".format(str(i))))
                 file_open.close()
                 i += 1
             except:
