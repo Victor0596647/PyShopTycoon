@@ -1,25 +1,18 @@
 from rich import print
 from rich.console import Console
 from rich.text import Text
-from rich.progress import track
 from rich.panel import Panel
-from rich.prompt import Prompt
-import time, sys
-import keyboard
+import time
 from os import system
 from player import Player
-from shop import Shop
 from shop_game import Shop_game
 
 class Game:
-    
-    #lib variables
     console = Console()
-    
     def __init__(self):
-        self.user = Player()
         self.vsavestrt = 'start_shoptyc::'
         self.game = 1
+        self.user = Player()
 
     def titleScreen(self):
         title = Text()
@@ -71,25 +64,30 @@ class Game:
         self.display_saves()
         print(Panel("Which save do you want to select to create a new game?\nSave [1], Save [2], Save [3] | [4] Cancel"))
         while True:
-            inp = int(input("> "))
-            if inp == 1 or inp == 2 or inp == 3:
-                file_open = open("./shop{0}.sav".format(str(inp-1)), "w")
-                file_open.write(self.vsavestrt)
-                userdata.append(input("What is your name: "))
-                userdata.append(input("What would you like to name your Company: "))
-                file_open.write("\nplayer:: " + userdata[0])
-                file_open.write("\ncomp:: " + userdata[1])
-                file_open.write("\ncash:: " + "1000")
-                file_open.close()
-                self.user.create_player(userdata[0], userdata[1], 1000)
-                print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company() + "\nCash: " + self.user.get_cash(),title="Loaded Save {0}".format(str(inp))))
-                time.sleep(2)
-                userdata.clear()
-                self.game = Shop_game(self.user.get_player_name(),self.user.get_company(),self.user.get_cash())
-                break
-            elif inp == 4:
-                self.start()
-                break
+            try:
+                inp = int(input("> "))
+                if inp == 1 or inp == 2 or inp == 3:
+                    file_open = open("./shop{0}.sav".format(str(inp-1)), "w")
+                    file_open.write(self.vsavestrt)
+                    print()
+                    userdata.append(input("What is your name: "))
+                    userdata.append(input("What would you like to name your Company: "))
+                    print()
+                    file_open.write("\nplayer:: " + userdata[0])
+                    file_open.write("\ncomp:: " + userdata[1])
+                    file_open.write("\ncash:: " + "1000")
+                    file_open.close()
+                    self.user.create_player(userdata[0], userdata[1], 1000)
+                    print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company() + "\nCash: " + self.user.get_cash(),title="Loaded Save {0}".format(str(inp))))
+                    time.sleep(2)
+                    userdata.clear()
+                    self.game = Shop_game(self.user.get_player_name(),self.user.get_company(),self.user.get_cash())
+                    break
+                elif inp == 4:
+                    self.start()
+                    break
+            except Exception as err:
+                print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
 
     def load_game(self):
         system("CLS")
@@ -98,39 +96,40 @@ class Game:
         file_open = ''
         print(Panel("Which save do you want to select to load?\nSave [1], Save [2], or Save [3] | [4] Cancel"))
         while True:
-            inp = int(input("> "))
-            if inp == 1 or inp == 2 or inp == 3:
-                if self.check_valid_saves("./shop{0}.sav".format(str(inp-1))) == False:
-                    file_open = open("./shop{0}.sav".format(str(inp-1)), "r")
-                    file_open.readline()
-                    for data in file_open.readlines():
-                        userdata.append(data)
+            try:
+                inp = int(input("> "))
+                if inp == 1 or inp == 2 or inp == 3:
+                    if self.check_valid_saves("./shop{0}.sav".format(str(inp-1))) == False:
+                        file_open = open("./shop{0}.sav".format(str(inp-1)), "r")
+                        file_open.readline()
+                        for data in file_open.readlines():
+                            userdata.append(data)
 
-                    for i in range(3):
-                        index = userdata[i].split(':: ', 1)
-                        if index[0] == "player":
-                            self.user.set_player_name(index[1].partition("\n")[0])
-                        if index[0] == "comp":
-                            self.user.set_company(index[1].partition("\n")[0])
-                        if index[0] == "cash":
-                            self.user.set_cash(int(index[1].partition("\n")[0]))
-                        else:
-                            pass
-                        i += 1
-                    print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company() + "\nCash: " + self.user.get_cash(),title="Loaded Save {0}".format(str(inp))))
-                    time.sleep(2)
-                    file_open.close()
-                    userdata.clear()
-                    self.game = Shop_game(self.user.get_player_name(),self.user.get_company(),self.user.get_cash())
-                    break
-                else:
-                    print("Save File Doesn't Exist!")
-                    time.sleep(2)
+                        for i in range(3):
+                            index = userdata[i].split(':: ', 1)
+                            if index[0] == "player":
+                                self.user.set_player_name(index[1].partition("\n")[0])
+                            if index[0] == "comp":
+                                self.user.set_company(index[1].partition("\n")[0])
+                            if index[0] == "cash":
+                                self.user.set_cash(int(index[1].partition("\n")[0]))
+                            else:
+                                pass
+                            i += 1
+                        print()
+                        print(Panel.fit("Player: " + self.user.get_player_name() +"\nCompany: " + self.user.get_company() + "\nCash: " + self.user.get_cash(),title="Loaded Save {0}".format(str(inp))))
+                        time.sleep(2)
+                        file_open.close()
+                        userdata.clear()
+                        self.game = Shop_game(self.user.get_player_name(),self.user.get_company(),self.user.get_cash())
+                        break
+                    else:
+                        print("Save File Doesn't Exist!")
+                elif inp == 4:
                     self.start()
                     break
-            elif inp == 4:
-                self.start()
-                break
+            except Exception as err:
+                print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
 
     def display_saves(self):
         file_open = ''
