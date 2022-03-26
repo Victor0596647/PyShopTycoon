@@ -44,25 +44,25 @@ class Game:
                     "> [5] Quit",title="Main Menu", width=65))
 
         while True:
-            try:
-                inp = int(input("> "))
-                
-                if inp == 1:
-                    self.new_game()
-                    break
-                elif inp == 2:
-                    self.load_game()
-                    break
-                elif inp == 3:
-                    self.display_saves()
-                elif inp == 4:
-                    print(self.user.get_player_name())
-                elif inp == 5:
-                    quit()
-                else:
-                    print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
-            except Exception as err:
-                print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
+            # try:
+            inp = int(input("> "))
+            
+            if inp == 1:
+                self.new_game()
+                break
+            elif inp == 2:
+                self.load_game()
+                break
+            elif inp == 3:
+                self.display_saves()
+            elif inp == 4:
+                print(self.user.get_player_name())
+            elif inp == 5:
+                quit()
+            else:
+                print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
+            # except Exception as err:
+            #     print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
 
     # File Handling
     def new_game(self):

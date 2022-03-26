@@ -1,0 +1,37 @@
+{   
+    "countries":[
+        {
+            "name": "Northern Manmac",
+            "population": 34384242,
+            "states": [
+                "Reoplosis",
+                "Ceavez",
+                "Andcaore",
+                "Caicar Pave",
+                "Canlire"
+            ]
+        },
+        {
+            "name": "Southern Manmac",
+            "population": 52888471,
+            "states": [
+                "Lonca",
+                "Chasse",
+                "Vasa",
+                "Laandla",
+                "Lyngo"
+            ]
+        },
+        {
+            "name": "Nastandian Republic",
+            "population": 67561503,
+            "states": [
+                "Nangau",
+                "Ngomar",
+                "Naireco",
+                "Nibar Beli",
+                "Nitedpu"
+            ]
+        }
+    ]
+}
