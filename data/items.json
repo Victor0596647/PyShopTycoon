@@ -1,0 +1,40 @@
+{
+    "items":[
+        {
+            "food": [
+                {
+                    "type": "Fruits & Vegetables",
+                    "list":[
+                        "Apples",
+                        "Orange",
+                        "Peach",
+                        "Strawberry",
+                        "Pineapple",
+                        "Grapes",
+                        "Tangerine",
+                        "Lemon",
+                        "Tomato",
+                        "Cucumber",
+                        "Carrot",
+                        "Avocado",
+                        "Salad",
+                        "Cabbage"
+                    ]
+                },
+                {
+                    "type": "Meat",
+                    "list":[
+                        "Chicken Breasts",
+                        "Chicken Wings",
+                        "Chicken Legs",
+                        "Whole Chicken",
+                        "Cow Meat",
+                        "Turkey",
+                        "Pork",
+                        "Chicken Eggs"
+                    ]
+                }
+            ]
+        }
+    ]
+}

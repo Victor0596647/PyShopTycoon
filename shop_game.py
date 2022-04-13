@@ -18,6 +18,15 @@ class Shop_game:
         self.countriesPop = []
         self.countriesStates = []
         
+        # Checks Json file
+        with open("data/locations.json") as f:
+            locat = json.load(f)
+            
+        for data in locat["countries"]:
+            self.countries.append(data["name"])
+            self.countriesStates.append(data["states"])
+            self.countriesPop.append(data["population"])
+        
         self.player_name = name
         self.player_company = company
         self.player_cash = int(cash)
@@ -32,6 +41,7 @@ class Shop_game:
             showCon.append("\n[" + str(i+1) + "] Country: " + data + "\n   Population: " + str(self.countriesPop[i])+ "\n")
             i+=1
         console.print(Panel.fit(showCon))
+        showCon = ""
         
     def dispStates(self,choice):
         console = Console()
@@ -43,14 +53,7 @@ class Shop_game:
         console.print(Panel.fit(showCon))
         
     def shop_start(self):
-        # Check json file with locations
-        with open("data/locations.json") as f:
-            locat = json.load(f)
-            
-        for data in locat["countries"]:
-            self.countries.append(data["name"])
-            self.countriesStates.append(data["states"])
-            self.countriesPop.append(data["population"])
+        system("CLS")
             
         self.dispCountries()
         print(Panel.fit("Choose a country to start your Market Career!"))
@@ -67,7 +70,9 @@ class Shop_game:
                 self.mark.create_market(Mname,selCountry,selState)
                 break
             except Exception as err:
-                print(err)
+                print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
+                time.sleep(1)
+                self.shop_start()
         self.game(0)
         
     def game(self,mk):
@@ -83,10 +88,12 @@ class Shop_game:
                 elif inp == "exit":
                     break
                 elif inp == "inven":
-                    self.inv.displayItems()
-                    self.inv.addItem("DragonFruit","Fruits & Vegetables",20)
-                    self.inv.displayItems()
+                   self.inventory() 
                 else:
                     print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
             except Exception as err:
                 print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
+                
+    def inventory(self):
+        self.inv.addItem("Drag","bles",1)
+        self.inv.displayItems()
