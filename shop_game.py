@@ -73,6 +73,7 @@ class Shop_game:
                 print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
                 time.sleep(1)
                 self.shop_start()
+        system("cls");
         self.game(0)
         
     def game(self,mk):
@@ -89,6 +90,8 @@ class Shop_game:
                     break
                 elif inp == "inven":
                    self.inventory() 
+                elif inp == "add":
+                    self.inv.addItem("Drag","bless",1)
                 else:
                     print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
             except Exception as err:

@@ -34,6 +34,36 @@
                         "Chicken Eggs"
                     ]
                 }
+            ],
+            "drink": [
+                {
+                    "type": "Juice",
+                    "list": [
+                        "Orange Juice",
+                        "Apple Juice",
+                        "Grape Juice"
+                    ]
+                }
+            ],
+            "technology": [
+                {
+                    "type": "Computer",
+                    "list": [
+                        "Generic Computer Mouse",
+                        "Generic Computer Microphone",
+                        "1980x1080 Computer Monitor",
+                        "1600x900 Computer Monitor",
+                        "1680x1080 Computer Monitor"
+                    ]
+                }
+            ],
+            "office": [
+                {
+                    "type": "Supplies",
+                    "list": [
+                        "Medium Office Desk"
+                    ]
+                }
             ]
         }
     ]

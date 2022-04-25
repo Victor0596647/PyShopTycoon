@@ -15,8 +15,16 @@ class Shop_Inv:
         added_item.append(str(type))
         added_item.append(int(amount))
         
-        self.inven.append(added_item.copy())
-        added_item.clear()
+        if len(self.inven) > 0:
+            for assoc in self.inven:
+                if assoc[0] == added_item[0] and assoc[1] == added_item[1]:
+                    assoc[2] = assoc[2] + added_item[2]
+                    print(assoc)
+                else:
+                    print("not found")
+        else:    
+            self.inven.append(added_item.copy())
+            added_item.clear()
         
     def removeItem(self,index):
         self.inven.pop(index)
@@ -35,3 +43,4 @@ class Shop_Inv:
             indx+=1
         
         Console().print(invtable)
+        print(self.inven)

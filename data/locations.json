@@ -32,6 +32,28 @@
                 "Nibar Beli",
                 "Nitedpu"
             ]
+        },
+        {
+            "name": "Zaland",
+            "population": 54753424,
+            "states": [
+                "Xulu",
+                "Zala",
+                "Pi",
+                "Boy",
+                "Idk"
+            ]
+        },
+        {
+            "name": "Ambrosia",
+            "population": 94357635,
+            "states": [
+                "Lothern", 
+                "Avalon", 
+                "Enderal", 
+                "Averna", 
+                "Qyra"
+            ]
         }
     ]
 }
