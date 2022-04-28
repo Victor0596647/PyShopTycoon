@@ -43,6 +43,15 @@
                         "Apple Juice",
                         "Grape Juice"
                     ]
+                },
+                {
+                    "type": "Soda",
+                    "list": [
+                        "Coke",
+                        "Fanta",
+                        "Sprite",
+                        "Sprite Cramberry"
+                    ]
                 }
             ],
             "technology": [
@@ -50,6 +59,12 @@
                     "type": "Computer",
                     "list": [
                         "Generic Computer Mouse",
+                        "Mechanical Keyboard (AZERTY)",
+                        "Mechanical Keyboard (QWERTY)",
+                        "Mechanical Keyboard (DVORAK)",
+                        "Membrane Keyboard (AZERTY)",
+                        "Membrane Keyboard (QWERTY)",
+                        "Membrane Keyboard (DVORAK)",
                         "Generic Computer Microphone",
                         "1980x1080 Computer Monitor",
                         "1600x900 Computer Monitor",
@@ -57,11 +72,12 @@
                     ]
                 }
             ],
-            "office": [
+            "funiture": [
                 {
-                    "type": "Supplies",
+                    "type": "Office",
                     "list": [
-                        "Medium Office Desk"
+                        "Medium Office Desk",
+                        "Medium Sized Office Chair"
                     ]
                 }
             ]

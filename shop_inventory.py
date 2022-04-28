@@ -8,26 +8,20 @@ class Shop_Inv:
     def __init__(self):
         self.inven = []
         
-    
     def addItem(self,name,type,amount):
-        added_item = []
-        added_item.append(str(name))
-        added_item.append(str(type))
-        added_item.append(int(amount))
-        
+        isFound = False
         if len(self.inven) > 0:
             for assoc in self.inven:
-                if assoc[0] == added_item[0] and assoc[1] == added_item[1]:
-                    assoc[2] = assoc[2] + added_item[2]
-                    print(assoc)
-                else:
-                    print("not found")
-        else:    
-            self.inven.append(added_item.copy())
-            added_item.clear()
+                if assoc[0] == str(name) and assoc[1] == str(type):
+                    assoc[2] = assoc[2] + int(amount)
+                    isFound = True
+            if not isFound:
+                self.inven.append([str(name),str(type),int(amount)])
+        else:
+            self.inven.append([str(name),str(type),int(amount)])
         
     def removeItem(self,index):
-        self.inven.pop(index)
+        self.inven.pop(int(index-1))
         
     def displayItems(self):
         #Inventory table
@@ -36,11 +30,10 @@ class Shop_Inv:
         invtable.add_column("Item Name", justify="left",style="white",min_width=25)
         invtable.add_column("Item Type", justify="left",style="cyan",min_width=20)
         invtable.add_column("Item Quantity", justify="left",style="green", no_wrap=True)
-        
+
         indx = 0
         for data in self.inven:
             invtable.add_row(str(indx+1),data[0],data[1],str(data[2]))
             indx+=1
-        
+            
         Console().print(invtable)
-        print(self.inven)

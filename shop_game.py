@@ -89,14 +89,13 @@ class Shop_game:
                 elif inp == "exit":
                     break
                 elif inp == "inven":
-                   self.inventory() 
-                elif inp == "add":
-                    self.inv.addItem("Drag","bless",1)
+                   self.inventory()
+                elif inp == "order":
+                    print("will be added soon!")
                 else:
                     print(Panel("'" + str(inp) + "'",style="#B3001B",title="Input Error",width=40,title_align="left"))
             except Exception as err:
                 print(Panel.fit(str(err),style="#B3001B",title="Error Exception"))
                 
     def inventory(self):
-        self.inv.addItem("Drag","bles",1)
         self.inv.displayItems()
